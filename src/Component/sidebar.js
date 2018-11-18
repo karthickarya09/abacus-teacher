@@ -10,8 +10,6 @@ import Collapse from "@material-ui/core/Collapse";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
 
 const styles = theme => ({
