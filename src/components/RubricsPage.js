@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import CustomizedTable from "./List";
 import Tooltip from "@material-ui/core/Tooltip";
+import {Link} from "react-router-dom";
 
 class RubricsPage extends Component {
   handleClick = event => {
@@ -51,7 +52,7 @@ class RubricsPage extends Component {
           <Tooltip title="Create Rubrics" placement="bottom">
             <Button
               variant="fab"
-              style={{background:"#2196f3", color:"#ffffff"}}
+              style={{ background: "#2196f3", color: "#ffffff" }}
               aria-label="Add"
               aria-owns={anchorEl ? "simple-menu" : undefined}
               aria-haspopup="true"
@@ -78,15 +79,17 @@ class RubricsPage extends Component {
               >
                 Use Existing Template
               </Button>
-              <Button
-                variant="outlined"
-                size="small"
-                color="primary"
-                onClick={this.handleClick}
-                style={{ marginTop: 6 }}
-              >
-                Create New Template
-              </Button>
+              <Link to="/createRubric">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  onClick={this.handleClick}
+                  style={{ marginTop: 6 }}
+                >
+                  Create New Template
+                </Button>
+              </Link>
             </div>
           )}
         </div>

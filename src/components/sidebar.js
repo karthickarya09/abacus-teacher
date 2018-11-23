@@ -52,30 +52,14 @@ class Sidebar extends Component {
               <ListItemText inset primary="Dashboard" />
             </ListItem>
           </Link>
-          <ListItem>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Rubrics" />
-          </ListItem>
-          <Collapse in="false" timeout="auto">
-            <List component="div" disablePadding>
-              <Link to="/Rubrics">
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText inset primary="Overview" />
-                </ListItem>
-              </Link>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Enter Rubrics" />
-              </ListItem>
-            </List>
-          </Collapse>
+          <Link to="/Rubrics">
+            <ListItem button>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="Rubrics" />
+            </ListItem>
+          </Link>
           <ListItem>
             <ListItemIcon>
               <InboxIcon />
