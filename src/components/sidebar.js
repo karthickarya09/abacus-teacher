@@ -11,6 +11,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
 import StarBorder from "@material-ui/icons/StarBorder";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -43,26 +44,30 @@ class Sidebar extends Component {
             <ListSubheader component="div">Nested List Items</ListSubheader>
           }
         >
-          <ListItem button>
-            <ListItemIcon>
-              <SendIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Overview" />
-          </ListItem>
-          <ListItem button>
+          <Link to="/">
+            <ListItem button>
+              <ListItemIcon>
+                <SendIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <ListItem>
             <ListItemIcon>
               <DraftsIcon />
             </ListItemIcon>
             <ListItemText inset primary="Rubrics" />
           </ListItem>
-          <Collapse in='false' timeout="auto" >
+          <Collapse in="false" timeout="auto">
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Create Rubrics" />
-              </ListItem>
+              <Link to="/Rubrics">
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText inset primary="Overview" />
+                </ListItem>
+              </Link>
               <ListItem button className={classes.nested}>
                 <ListItemIcon>
                   <StarBorder />
@@ -71,13 +76,13 @@ class Sidebar extends Component {
               </ListItem>
             </List>
           </Collapse>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText inset primary="Analytics" />
           </ListItem>
-          <Collapse in='false' timeout="auto" >
+          <Collapse in="false" timeout="auto">
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
                 <ListItemIcon>
