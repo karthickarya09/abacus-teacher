@@ -37,7 +37,7 @@ class Navbar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="top">
+        <AppBar position="relative">
           <Toolbar>
             <IconButton
               className={classes.menuButton}

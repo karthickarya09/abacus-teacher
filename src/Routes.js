@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// import Route from "react-router-dom";
+import {Route} from "react-router-dom";
+import Dashboard from "./components/Dashboard";
 
 
 
@@ -8,8 +9,8 @@ class Routes extends Component{
     render(){
         return(
             <div className="content-wrapper">
-                {/* <Route exact path="/" component={Dashboard}/>
-                <Route path="/createRubric" component={CreateRubric}/>
+                <Route exact path="/" component={Dashboard}/>
+                {/* <Route path="/createRubric" component={CreateRubric}/>
                 <Route path="/enterRubric" component={EnterRubric}/>
                 <Route path="/analysis" component={Dashboard}/>
                 <Route path="/classroomAnalysis" component={ClassroomAnalytics}/>
