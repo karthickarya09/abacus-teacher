@@ -160,9 +160,6 @@ class CreateRubric extends Component {
                               multiline
                               margin="normal"
                               value={competency.label}
-                              onChange={e=>{
-                                this.handleChange(e, competency.index)
-                              }}
                             />
                           </td>
                         );
@@ -185,5 +182,4 @@ class CreateRubric extends Component {
     );
   }
 }
-
 export default CreateRubric;
