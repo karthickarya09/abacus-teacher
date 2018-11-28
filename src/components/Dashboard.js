@@ -34,9 +34,10 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log("State: ", state)
   return {
     classrooms: state.classrooms,
-    data: state.data
+    name: state.Name
   };
 };
 export default connect(mapStateToProps)(Dashboard);
