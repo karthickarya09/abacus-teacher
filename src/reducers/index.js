@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
-import teacher from './teacherReducer'
+import teacherData from './teacherReducer'
 
 const rootReducer = combineReducers({
-    teacher
+    teacherData
 })
 
 export default rootReducer

@@ -15,6 +15,7 @@ class Dashboard extends Component {
     this.props.getTeacher()
   }
   render() {
+    console.log("Props: ", this.props.data)
     return (
       <div style={{ padding: 25 }}>
         <h1>Dashboard</h1>
@@ -45,10 +46,8 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("State: ", state)
   return {
-    classrooms: state.classrooms,
-    name: state.Name
+      data: state.data
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

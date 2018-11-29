@@ -1,5 +1,5 @@
 const initialState = {
-    teacher: {},
+    teacherData: {},
     classrooms: {},
     students: {},
     templates: {},

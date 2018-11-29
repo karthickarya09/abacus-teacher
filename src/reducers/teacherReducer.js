@@ -1,11 +1,15 @@
 import initialState from './initialState'
 
-export default function teacherReducer(state = initialState.teacher, action) {
+export default function teacherReducer(state, action) {
   switch (action.type) {
     case "LOAD_TEACHER_SUCCESS": {
-      console.log("load teacher Success");
+        console.log("teacherData", action.teacherData)
+      return {
+          ...state,
+          data: action.teacherData
+      }
     }
     default:
-      return state;
+      return state=initialState.teacherData;
   }
 }
