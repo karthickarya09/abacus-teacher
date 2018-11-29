@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SimpleCard from "./Card";
 import { connect } from "react-redux";
+import getTeacher from '../actions/teacherActions'
+import {bindActionCreators} from 'redux'
 
 class Dashboard extends Component {
   state = {
@@ -9,6 +11,9 @@ class Dashboard extends Component {
     }
   };
 
+  handleClick = () => {
+    this.props.getTeacher()
+  }
   render() {
     return (
       <div style={{ padding: 25 }}>
@@ -25,7 +30,7 @@ class Dashboard extends Component {
           }}
         >
           <div style={{ padding: 10 }}>
-            <SimpleCard data={this.state.cardData} />
+            <SimpleCard data={this.state.cardData} handleClick={this.handleClick}/>
           </div>
         </div>
       </div>
@@ -33,11 +38,17 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => {
-    console.log("State: ", state)
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        getTeacher: bindActionCreators(getTeacher, dispatch)
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("State: ", state)
   return {
     classrooms: state.classrooms,
     name: state.Name
   };
 };
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

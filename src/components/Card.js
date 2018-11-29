@@ -26,7 +26,7 @@ const styles = {
 };
 
 function SimpleCard(props) {
-  const { classes, data} = props;
+  const { classes, data, handleClick} = props;
   const {title} = data;
 
   return (
@@ -42,7 +42,7 @@ function SimpleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">View Class</Button>
+        <Button size="small" onClick={handleClick}>View Class</Button>
       </CardActions>
     </Card>
   );

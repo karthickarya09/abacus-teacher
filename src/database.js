@@ -4,7 +4,7 @@ import firebase from "firebase";
 firebase.initializeApp(config);
 let db = firebase.firestore();
 
-export default async function initializeData() {
+async function initializeData() {
   let initialData = {};
   await getTeacherData().then(teacher => {
     initialData = teacher;
@@ -35,4 +35,10 @@ async function getClassroomData(classrooms) {
     });
   }
   return classroomData;
+}
+
+export default {
+    initializeData: initializeData,
+    getTeacherData: getTeacherData,
+    getClassroomData: getClassroomData
 }
