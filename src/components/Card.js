@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    minWidth: 250,
+    minWidth: 200,
     maxWidth: 300
   },
   bullet: {
@@ -27,18 +27,16 @@ const styles = {
 
 function SimpleCard(props) {
   const { classes, data, handleClick} = props;
-  const {title} = data;
+  const {id, Grade, Section} = data;
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h5" component="h2">
-          {title}
+          {id}
         </Typography>
         <Typography component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          {Grade +''+ Section}
         </Typography>
       </CardContent>
       <CardActions>
