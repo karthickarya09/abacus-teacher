@@ -1,6 +1,6 @@
-export default function setClassrooms(classroomData) {
+export default function setClassroom(classroomData) {
   return {
-    action : "LOAD_CLASS_SUCCESSFUL",
-    classroomData
+    type : "LOAD_CLASS_SUCCESSFUL",
+    classroomData: {}
   };
 }

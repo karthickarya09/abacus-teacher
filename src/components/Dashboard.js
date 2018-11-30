@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import SimpleCard from "./Card";
 import { connect } from "react-redux";
-import getTeacher from "../actions/teacherActions";
-import { bindActionCreators, compose } from "redux";
+import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import Loading from "./Loading";
 
@@ -48,7 +47,7 @@ class Dashboard extends Component {
                   <div style={{ margin: 10 }} key={classroom.id}>
                     <SimpleCard
                       data={classroom}
-                      handleClick={this.handleClick}
+                      handleClick={this.props.setClassroom}
                     />
                   </div>
                 );
@@ -61,12 +60,6 @@ class Dashboard extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getTeacher: bindActionCreators(getTeacher, dispatch)
-  };
-};
-
 const mapStateToProps = (state, ownProps) => {
   return {
     teacherData: state.firestore.ordered.teachers
@@ -78,9 +71,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps),
   firestoreConnect(["teachers", "classrooms"])
 )(Dashboard);

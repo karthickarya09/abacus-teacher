@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import RubricsPage from "./components/RubricsPage"
 import CreateRubric from "./components/CreateRubric"
 import Classroom from "./components/classroom"
+import Student from "./components/Student"
 
 
 class Routes extends Component{
@@ -15,9 +16,10 @@ class Routes extends Component{
                 <Route path="/Rubrics" component={RubricsPage}/>
                 <Route path="/createRubric" component={CreateRubric}/>
                 <Route path="/classroomAnalysis" component={Classroom}/>
+                <Route path="/studentAnalysis" component={Student}/>
                 {/* <Route path="/enterData" component={StudentRubricData}/>
                 <Route path="/analysis" component={Dashboard}/>
-                <Route path="/studentAnalysis" component={StudentAnalytics}/> */}
+                 */}
             </div>
         )
     }
