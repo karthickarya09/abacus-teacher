@@ -3,6 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
 import { Table } from "react-bootstrap";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import addTemplate from '../actions/rubricActions'
 
 class CreateRubric extends Component {
   state = {
@@ -53,6 +56,19 @@ class CreateRubric extends Component {
     competencies[index][element] = e.target.value;
     this.setState({ competencies: competencies });
   };
+
+  handleSubmit = () => {
+    let competencies = this.state.competencies
+    this.state.competencies.map((competency, index)=>{
+      this.state.labels.map(label=>{
+        competencies[index][label] = document.getElementById(String(competency.key+label)).value
+      })
+    })
+    this.setState({
+      ...this.state,
+      competencies
+    })
+  }
   render() {
     return (
       <div
@@ -135,10 +151,9 @@ class CreateRubric extends Component {
               <tbody>
                 {this.state.competencies.map(competency => {
                   return (
-                    <tr>
+                    <tr key={competency}>
                       <td>
                         <TextField
-                          key={competency}
                           required
                           id="key"
                           label="Competency Name"
@@ -154,13 +169,13 @@ class CreateRubric extends Component {
                         return (
                           <td>
                             <TextField
-                              key={competency + label}
+                              key={competency.key + label}
                               required
-                              id={String(label)}
+                              id={String(competency.key+label)}
                               label="Meaning"
                               multiline
                               margin="normal"
-                              value={competency.label}
+                              
                             />
                           </td>
                         );
@@ -176,6 +191,7 @@ class CreateRubric extends Component {
             <Button
               variant="outlined"
               style={{ marginLeft: 10, background: "#4caf50" }}
+              onClick={this.handleSubmit}
             >
               Submit Template
             </Button>
@@ -185,4 +201,15 @@ class CreateRubric extends Component {
     );
   }
 }
-export default CreateRubric;
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    addTemplate: bindActionCreators(addTemplate, dispatch)
+  }
+}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    teacherData: state.firestore.ordered.teachers? state.firestore.ordered.teachers[0]:{}
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateRubric);

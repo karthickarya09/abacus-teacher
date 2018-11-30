@@ -1,10 +1,13 @@
-export default function getTeacher() {
-  // return function(dispatch, getState, {getFirebase, getFirestore}) {
-  //   return dbFunctions.getTeacherData().then(teacherData => {
-  //     dispatch({
-  //       type: "LOAD_TEACHER_SUCCESS",
-  //       teacherData
-  //     });
+export default function setTeacher(teacherData) {
+  // return function(dispatch, { getFirebase, getFirestore }) {
+  //   let teacherData = {}
+  //   dispatch({
+  //     type: "LOAD_TEACHER_SUCCESS",
+  //     teacherData
   //   });
   // };
+  return {
+    type: "LOAD_TEACHER_SUCCESS",
+    teacherData
+  };
 }

@@ -4,6 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CustomizedTable from "./List";
 import Tooltip from "@material-ui/core/Tooltip";
 import {Link} from "react-router-dom";
+import { connect } from "react-redux";
 
 class RubricsPage extends Component {
   handleClick = event => {
@@ -97,5 +98,10 @@ class RubricsPage extends Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    teacherData: state.firestore.ordered.teachers? state.firestore.ordered.teachers[0]:{}
+  };
+};
 
-export default RubricsPage;
+export default connect(mapStateToProps)(RubricsPage);
