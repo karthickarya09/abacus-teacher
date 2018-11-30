@@ -12,15 +12,12 @@ class CreateRubric extends Component {
     labels: [],
     noTitle: false
   };
-  style = {
-    margin: 20
-  };
 
   generateRubric = () => {
     let lowerBound = document.getElementById("lowerBound").value,
       upperBound = document.getElementById("upperBound").value;
     let labels = new Array(0);
-    if(document.getElementById("title").value.length===0){
+    if (document.getElementById("title").value.length === 0) {
       this.setState({ noTitle: true });
       return;
     }
@@ -43,22 +40,26 @@ class CreateRubric extends Component {
   };
 
   addCompetency = () => {
-    let competency = { key: "", index : this.state.competencies.length};
+    let competency = { key: "", index: this.state.competencies.length };
     this.state.labels.map(label => {
       competency[label] = "";
     });
     this.setState({ competencies: [...this.state.competencies, competency] });
   };
 
-  handleChange = (e, index) =>{
+  handleChange = (e, index) => {
     let competencies = this.state.competencies;
-    let element = e.target.id
-    competencies[index][element] = e.target.value
-    this.setState({competencies: competencies})
-  }
+    let element = e.target.id;
+    competencies[index][element] = e.target.value;
+    this.setState({ competencies: competencies });
+  };
   render() {
     return (
-      <div style={this.style}>
+      <div
+        style={{
+          margin: 20
+        }}
+      >
         <h1>Create Rubric</h1>
         <TextField
           required
@@ -127,7 +128,7 @@ class CreateRubric extends Component {
                 <tr>
                   <th key="competencyLabel">Competencies</th>
                   {this.state.labels.map(label => {
-                    return <th key={"label"+label}>{label}</th>;
+                    return <th key={"label" + label}>{label}</th>;
                   })}
                 </tr>
               </thead>
@@ -144,8 +145,8 @@ class CreateRubric extends Component {
                           multiline
                           margin="normal"
                           value={competency.key}
-                          onChange={e=>{
-                            this.handleChange(e, competency.index)
+                          onChange={e => {
+                            this.handleChange(e, competency.index);
                           }}
                         />
                       </td>
@@ -153,7 +154,7 @@ class CreateRubric extends Component {
                         return (
                           <td>
                             <TextField
-                              key={competency+label}
+                              key={competency + label}
                               required
                               id={String(label)}
                               label="Meaning"
@@ -172,10 +173,12 @@ class CreateRubric extends Component {
             <Button variant="outlined" onClick={this.addCompetency}>
               Add Competency
             </Button>
-            <Button variant="outlined" style={{marginLeft: 10, background:"#4caf50"}}>
+            <Button
+              variant="outlined"
+              style={{ marginLeft: 10, background: "#4caf50" }}
+            >
               Submit Template
             </Button>
-            
           </div>
         )}
       </div>

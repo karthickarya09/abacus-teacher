@@ -1,5 +1,3 @@
-import dbFunctions from "../database";
-
 export default function getTeacher() {
   // return function(dispatch, getState, {getFirebase, getFirestore}) {
   //   return dbFunctions.getTeacherData().then(teacherData => {

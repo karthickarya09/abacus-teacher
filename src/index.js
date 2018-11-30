@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import Bootstrap from "bootstrap/dist/css/bootstrap.css";
+import Bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./reducers/index";
 import { Provider } from "react-redux";
