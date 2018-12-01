@@ -13,14 +13,17 @@ class CreateRubric extends Component {
     invalidRange: false,
     competencies: [],
     labels: [],
-    noTitle: false
+    noTitle: false,
+    teacherData : this.props.teacherData,
+    title: ''
   };
 
   generateRubric = () => {
     let lowerBound = document.getElementById("lowerBound").value,
-      upperBound = document.getElementById("upperBound").value;
+      upperBound = document.getElementById("upperBound").value,
+      title = document.getElementById("title").value;
     let labels = new Array(0);
-    if (document.getElementById("title").value.length === 0) {
+    if (title.length === 0) {
       this.setState({ noTitle: true });
       return;
     }
@@ -38,7 +41,8 @@ class CreateRubric extends Component {
       title: document.getElementById("title").value,
       lowerBound: Number(lowerBound),
       upperBound: Number(upperBound),
-      labels: labels
+      labels: labels,
+      title
     });
   };
 
@@ -67,6 +71,11 @@ class CreateRubric extends Component {
     this.setState({
       ...this.state,
       competencies
+    })
+    this.props.addTemplate(this.state)
+    this.props.history.push({
+      pathname:'/enterStudentData',
+      state: this.state.competencies
     })
   }
   render() {

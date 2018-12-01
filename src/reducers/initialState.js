@@ -1,6 +1,7 @@
+import config from '../config'
 const initialState = {
-    teacherData:{},
-    classrooms: {},
+    teacherData:{acdYear: config.acdYear},
+    classrooms: {acdYear: config.acdYear},
     students: {},
     templates: {},
     currentRubric: {}
