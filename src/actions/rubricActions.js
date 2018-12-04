@@ -24,7 +24,6 @@ export default function addTemplate(state) {
             myTemplates: [...myTemplates, key]
           })
           .then(() => {
-              console.log("Im here")
             dispatch({
               type: "ADD_TEMPLATE_SUCCESS",
               templateData

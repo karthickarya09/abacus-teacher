@@ -202,7 +202,7 @@ class CreateRubric extends Component {
               style={{ marginLeft: 10, background: "#4caf50" }}
               onClick={this.handleSubmit}
             >
-              Submit Template
+              Submit Assessment
             </Button>
           </div>
         )}

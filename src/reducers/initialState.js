@@ -4,7 +4,8 @@ const initialState = {
     classrooms: {acdYear: config.acdYear},
     students: {},
     templates: {},
-    currentRubric: {}
+    currentRubric: {},
+    submitSuccess: false
 }
 
 export default initialState
