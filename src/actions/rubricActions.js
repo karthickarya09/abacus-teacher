@@ -5,7 +5,7 @@ export default function addTemplate(state) {
     let templateData = {
       Title: state.title,
       Author: state.teacherData.Name,
-      createdOn: new Date()
+      createdOn: new Date(),
     };
     templateData.competencies = {};
     state.competencies.forEach(competency => {

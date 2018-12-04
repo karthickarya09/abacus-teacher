@@ -26,14 +26,27 @@ export function getStudents(classID) {
 export function updateStudentRubrics(title, studentRubricData, props, classID) {
   return (dispatch, getFirebase, getFirestore) => {
     studentRubricData.title = title;
-    studentRubricData.lastSubmitted = new Date();
+    studentRubricData.classID = classID;
+    studentRubricData.dateCreated = new Date().toString();
+    studentRubricData.lastSubmitted = new Date().toString();
+    studentRubricData.acdYear = props.teacherData.acdYear;
     const firestore = getFirestore.getFirestore();
     let competencies = Object.keys(props.rubricData.competencies);
-    let classAllCompetencies = {};
+    let currentClassroomData = {};
+    currentClassroomData = props.classRoomData.filter(classroom => {
+      return classroom.id == classID;
+    });
+    let classAllCompetencies = currentClassroomData[0].allCompetencies;
+
     let acdYear;
     competencies.forEach(competency => {
-      classAllCompetencies[competency] = 0;
+      
+      classAllCompetencies = {
+        ...classAllCompetencies,
+        [competency]:  0
+      };
     });
+    
     firestore
       .collection("assessments")
       .add(studentRubricData)
@@ -73,15 +86,24 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               }
             };
           });
+          
+          if (myRubrics.hasOwnProperty(acdYear)) {
+            myRubrics = {
+              ...myRubrics,
+              [acdYear]: [...myRubrics[acdYear], [key]]
+            };
+          } else {
+            myRubrics = {
+              ...myRubrics,
+              [acdYear]: [key]
+            };
+          }
+          
+          
+          
           firestore
             .update("students/" + student.id, {
-              myRubrics: {
-                ...myRubrics,
-                [acdYear]: {
-                  ...myRubrics[acdYear],
-                  key
-                }
-              },
+              myRubrics: myRubrics,
               allCompetencies: allCompetencies,
               competencies: studentCompetencies
             })
@@ -92,7 +114,12 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
                   ...myRubrics,
                   [acdYear]: [...myRubrics[acdYear], key]
                 };
-              } else myRubrics[acdYear] = [key];
+              } else {
+                myRubrics = {
+                  ...myRubrics,
+                  [acdYear]: [key]
+                };
+              }
 
               firestore.update("teachers/8HuuLwmrU1xrltwrCByE", {
                 myRubrics: myRubrics
@@ -100,13 +127,11 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
             });
         });
         competencies.forEach(competency => {
-          classAllCompetencies[competency] =
-            classAllCompetencies[competency] / props.studentData.length;
-        });
-
-        let currentClassroomData = {};
-        currentClassroomData = props.classRoomData.filter(classroom => {
-          return classroom.id == classID;
+          classAllCompetencies = {
+            ...classAllCompetencies,
+            [competency]:
+              classAllCompetencies[competency] / props.studentData.length
+          };
         });
 
         let classroomCompetencies = currentClassroomData[0].competencies;
