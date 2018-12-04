@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import LineGraph from "./LineGraph";
 import ChipsArray from "./Chip";
+import Radarchart from "./RadarChart";
 
 class Student extends Component {
   state = {
@@ -11,17 +12,31 @@ class Student extends Component {
     competencies: [],
     years: [],
     graphData: [],
-    selectedLabels: []
+    selectedLabels: [],
+    radarData: [],
+    competencyIndex: {}
   };
   selectChip = data => () => {
     let graphData = this.state.graphData;
     const chipData = [...this.state.competencies];
     const chipToHighlight = chipData.indexOf(data);
     let selectedLabels = this.state.selectedLabels;
+    let radarData=this.state.radarData
+    let competencyIndex = this.state.competencyIndex
 
     let temp = this.state.lineData[data.competency];
-    if (chipData[chipToHighlight].selected)
+    if (chipData[chipToHighlight].selected) {
       selectedLabels.splice(selectedLabels.indexOf(data.competency), 1);
+    }
+
+    if (chipData[chipToHighlight].selected) {
+      competencyIndex[data.competency] = radarData.length
+      radarData.push({competency: data.competency, score: this.props.studentData.allCompetencies[data.competency]})
+    } else {
+      radarData.splice(competencyIndex[data.competency], 1);
+      delete competencyIndex[data.competency]
+    }
+
     Object.keys(temp).forEach(year => {
       if (chipData[chipToHighlight].selected) {
         delete graphData[this.state.years.indexOf(year)][data.competency];
@@ -47,34 +62,43 @@ class Student extends Component {
     let competencies = new Array();
     let years = new Array(0);
     let graphData = [];
-    Object.keys(this.props.studentData.allCompetencies).forEach(competency => {
-      competencies.push({ competency: competency, selected: false });
-      Object.keys(this.props.studentData.competencies).forEach(year => {
-        if (!years.includes(year)) {
-          graphData.push({ name: year });
-          years.push(year);
-        }
-        if (
-          this.props.studentData.competencies[year].hasOwnProperty(competency)
-        ) {
-          let temp = lineData.hasOwnProperty(competency)
-            ? lineData[competency]
-            : {};
-          lineData = {
-            ...lineData,
-            [competency]: {
-              ...temp,
-              [year]: this.props.studentData.competencies[year][competency]
-            }
-          };
-        }
-      });
-    });
+    let radarData= []
+    let competencyIndex={}
+    Object.keys(this.props.studentData.allCompetencies).map(
+      (competency, index) => {
+        competencies.push({ competency: competency, selected: false });
+        competencyIndex[competency] = index
+        radarData.push({competency: competency, score:this.props.studentData.allCompetencies[competency]})
+        Object.keys(this.props.studentData.competencies).forEach(year => {
+          if (!years.includes(year)) {
+            graphData.push({ name: year });
+            years.push(year);
+          }
+          if (
+            this.props.studentData.competencies[year].hasOwnProperty(competency)
+          ) {
+            let temp = lineData.hasOwnProperty(competency)
+              ? lineData[competency]
+              : {};
+            lineData = {
+              ...lineData,
+              [competency]: {
+                ...temp,
+                [year]: this.props.studentData.competencies[year][competency]
+              }
+            };
+          }
+        });
+      }
+    );
+    console.log(radarData, competencyIndex)
     this.setState({
       lineData,
       competencies,
       years,
-      graphData
+      graphData,
+      radarData,
+      competencyIndex
     });
   }
 
@@ -86,20 +110,34 @@ class Student extends Component {
           margin: 20
         }}
       >
-        <h4>{student.Name}, {student.classId}</h4>
+        <h4>
+          {student.Name}, {student.classId}
+        </h4>
         <h4>{student.acdYear}</h4>
-
+        <hr></hr>
+        <h4>Over The Time Analysis</h4>
         {Object.keys(this.state.lineData).length > 0 && (
           <div>
             <ChipsArray
               selectChip={this.selectChip}
               chipData={this.state.competencies}
             />
-            <div style={{ display:'flex', justifyContent:'center'}}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <LineGraph
                 data={this.state.graphData}
                 labels={this.state.selectedLabels}
               />
+            </div>
+            <hr></hr>
+            <h4>Overall Competency Analysis</h4>
+            <div
+              style={{
+                marginTop: 10,
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              <Radarchart data={this.state.radarData}/>
             </div>
           </div>
         )}
