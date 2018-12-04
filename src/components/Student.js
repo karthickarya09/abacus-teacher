@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-import Radarchart from "./Radarchart";
+import LineGraph from "./LineGraph";
 import ChipsArray from "./Chip";
 
 class Student extends Component {
@@ -11,21 +11,23 @@ class Student extends Component {
     competencies: [],
     years: [],
     graphData: [],
-    selectedLabels:[]
+    selectedLabels: []
   };
   selectChip = data => () => {
     let graphData = this.state.graphData;
     const chipData = [...this.state.competencies];
     const chipToHighlight = chipData.indexOf(data);
-    let selectedLabels = this.state.selectedLabels
+    let selectedLabels = this.state.selectedLabels;
 
     let temp = this.state.lineData[data.competency];
+    if (chipData[chipToHighlight].selected)
+      selectedLabels.splice(selectedLabels.indexOf(data.competency), 1);
     Object.keys(temp).forEach(year => {
       if (chipData[chipToHighlight].selected) {
-        selectedLabels.splice(selectedLabels.indexOf(data.competency),1)
-        delete graphData[this.state.years.indexOf(year)][data.competency]
+        delete graphData[this.state.years.indexOf(year)][data.competency];
       } else {
-        selectedLabels.push(data.competency)
+        if (!selectedLabels.includes(data.competency))
+          selectedLabels.push(data.competency);
         graphData[this.state.years.indexOf(year)] = {
           ...graphData[this.state.years.indexOf(year)],
           [data.competency]: this.state.lineData[data.competency][year].score
@@ -33,7 +35,12 @@ class Student extends Component {
       }
     });
     chipData[chipToHighlight].selected = !chipData[chipToHighlight].selected;
-    this.setState({ ...this.state, competencies: chipData, graphData, selectedLabels });
+    this.setState({
+      ...this.state,
+      competencies: chipData,
+      graphData,
+      selectedLabels
+    });
   };
   componentDidMount() {
     let lineData = {};
@@ -79,7 +86,8 @@ class Student extends Component {
           margin: 20
         }}
       >
-        <h4>{student.Name}</h4>
+        <h4>{student.Name}, {student.classId}</h4>
+        <h4>{student.acdYear}</h4>
 
         {Object.keys(this.state.lineData).length > 0 && (
           <div>
@@ -87,8 +95,11 @@ class Student extends Component {
               selectChip={this.selectChip}
               chipData={this.state.competencies}
             />
-            <div style={{ margin: 10 }}>
-              <Radarchart data={this.state.graphData} labels={this.state.selectedLabels}/>
+            <div style={{ display:'flex', justifyContent:'center'}}>
+              <LineGraph
+                data={this.state.graphData}
+                labels={this.state.selectedLabels}
+              />
             </div>
           </div>
         )}

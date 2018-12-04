@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import {LineChart, CartesianGrid, XAxis, YAxis, Legend, Line, Tooltip} from 'recharts'
 
-class Radarchart extends Component {
+class LineGraph extends Component {
+  
+  colors=['#8884d8', "#82ca9d", "#BBB56d", "#A2252a", "#FC322B"] 
+  
   render() {
     const data = [
         {name: 'Page A', uv: 4000, pv: 2400},
@@ -13,10 +16,9 @@ class Radarchart extends Component {
         {name: 'Page G',  pv: 4300}
     ];
     let lines=[]
-    lines = this.props.labels.map(label=>{
-      return (<Line type="monotone" dataKey={label} stroke="#8884d8" />)
+    lines = this.props.labels.map((label, index)=>{
+      return (<Line type="monotone" dataKey={label} stroke={this.colors[index]} />)
     })
-    console.log(lines)
     return (
       <LineChart
         width={730}
@@ -26,7 +28,7 @@ class Radarchart extends Component {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis domain={[0, 6]} />
         <Tooltip />
         <Legend />
         {lines}
@@ -35,4 +37,4 @@ class Radarchart extends Component {
   }
 }
 
-export default Radarchart;
+export default LineGraph;
