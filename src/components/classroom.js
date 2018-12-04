@@ -7,6 +7,7 @@ import { IconButton } from "@material-ui/core";
 import { InsertChartOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
+import StackedBarGraph from "./stackedBarGraph";
 
 class Classroom extends Component {
   render() {
@@ -26,6 +27,7 @@ class Classroom extends Component {
             " " +
             this.props.classroomData.Section}
         </h4>
+        <StackedBarGraph />
         {loading && <Loading />}
         {!loading && (
           <Table responsive>

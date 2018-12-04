@@ -38,7 +38,7 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
     });
     let classAllCompetencies = currentClassroomData[0].allCompetencies;
 
-    let acdYear;
+    let acdYear = props.teacherData.acdYear;
     competencies.forEach(competency => {
       
       classAllCompetencies = {
@@ -56,7 +56,7 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
           let myRubrics = student.myRubrics;
           let studentCompetencies = student.competencies;
           let allCompetencies = student.allCompetencies;
-          acdYear = student.acdYear;
+          
           competencies.forEach(competency => {
             classAllCompetencies[competency] +=
               studentRubricData[student.id][competency];
