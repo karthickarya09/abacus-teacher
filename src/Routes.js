@@ -6,6 +6,7 @@ import CreateRubric from "./components/CreateRubric"
 import Classroom from "./components/classroom"
 import Student from "./components/Student"
 import GradeStudents from "./components/GradeStudents"
+import Templates from "./components/Templates"
 
 
 class Routes extends Component{
@@ -19,6 +20,7 @@ class Routes extends Component{
                 <Route path="/classroomAnalysis" component={Classroom}/>
                 <Route path="/studentAnalysis" component={Student}/>
                 <Route path="/enterStudentData" component={GradeStudents}/>
+                <Route path="/selectTemplate" component={Templates}/>
                 {/* 
                 <Route path="/analysis" component={Dashboard}/>
                  */}

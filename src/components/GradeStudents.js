@@ -219,10 +219,7 @@ const mapStateToProps = (state, ownProps) => {
       : {},
     studentData: state.studentData.studentData
       ? state.studentData.studentData
-      : [],
-    rubricData: state.firestore.ordered.templates
-      ? state.firestore.ordered.templates[0]
-      : {}
+      : []
   };
 };
 

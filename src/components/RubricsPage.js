@@ -7,68 +7,64 @@ import { connect } from "react-redux";
 import { compose, bindActionCreators } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Table } from "react-bootstrap";
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { IconButton } from '@material-ui/core';
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import { IconButton } from "@material-ui/core";
 
 class RubricsPage extends Component {
   handleClick = event => {
     this.setState({ anchorEl: !this.state.anchorEl });
   };
   state = {
-    anchorEl: false,
-    data: [
-      {
-        id: 1,
-        name: "Rubrics 1",
-        dateCreated: "11/09/2018",
-        lastModified: "11/20/2018"
-      },
-      {
-        id: 1,
-        name: "Rubrics 1",
-        dateCreated: "11/09/2018",
-        lastModified: "11/20/2018"
-      },
-      {
-        id: 1,
-        name: "Rubrics 1",
-        dateCreated: "11/09/2018",
-        lastModified: "11/20/2018"
-      }
-    ]
+    anchorEl: false
   };
 
   render() {
-    if(this.props.assessments.length>0)
-      console.log(this.props.assessments[0].lastSubmitted)
+    if (this.props.assessments.length > 0)
+      console.log(this.props.assessments[0].lastSubmitted);
     const { anchorEl } = this.state;
     return (
       <div style={{ padding: 10 }}>
-        {(this.props.assessments.length>0) && <Table responsive>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Class ID</th>
-              <th>Academic Year</th>
-              <th>Date Created</th>
-              <th>Last Modified</th>
-              <th>Edit Submission</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.assessments.map(assessment=>{
-              return (<tr key={assessment.id}>
-                <td>{assessment.title}</td>
-                <td>{assessment.classID}</td>
-                <td>{assessment.acdYear}</td>
-                <td>{(assessment.lastSubmitted).substr(0,10)+',   '+(assessment.lastSubmitted).substr(16,5)}</td>
-                <td>{(assessment.lastSubmitted).substr(0,10)+', '+(assessment.lastSubmitted).substr(16,5)}</td>
-                <td><IconButton><EditIcon button /></IconButton></td>
-              </tr>)
-            })}
-          </tbody>
-        </Table>}
+        {this.props.assessments.length > 0 && (
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Class ID</th>
+                <th>Academic Year</th>
+                <th>Date Created</th>
+                <th>Last Modified</th>
+                <th>Edit Submission</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.assessments.map(assessment => {
+                return (
+                  <tr key={assessment.id}>
+                    <td>{assessment.title}</td>
+                    <td>{assessment.classID}</td>
+                    <td>{assessment.acdYear}</td>
+                    <td>
+                      {assessment.lastSubmitted.substr(0, 10) +
+                        ",   " +
+                        assessment.lastSubmitted.substr(16, 5)}
+                    </td>
+                    <td>
+                      {assessment.lastSubmitted.substr(0, 10) +
+                        ", " +
+                        assessment.lastSubmitted.substr(16, 5)}
+                    </td>
+                    <td>
+                      <IconButton>
+                        <EditIcon button />
+                      </IconButton>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
         <div
           className="buttonContainer"
           style={{
@@ -102,14 +98,16 @@ class RubricsPage extends Component {
                 padding: 5
               }}
             >
-              <Button
-                variant="outlined"
-                size="small"
-                color="primary"
-                onClick={this.handleClick}
-              >
-                Use Existing Template
-              </Button>
+              <Link to="/selectTemplate">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  onClick={this.handleClick}
+                >
+                  Use Existing Template
+                </Button>
+              </Link>
               <Link to="/createRubric">
                 <Button
                   variant="outlined"
@@ -129,7 +127,6 @@ class RubricsPage extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.firestore)
   return {
     teacherData: state.firestore.ordered.teachers
       ? state.firestore.ordered.teachers[0]

@@ -6,6 +6,7 @@ import { firestoreConnect } from "react-redux-firebase";
 class Student extends Component {
   render() {
     let student = this.props.studentData;
+    console.log(student)
     return (
       <div
         style={{

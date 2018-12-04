@@ -86,21 +86,20 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               }
             };
           });
-          
           if (myRubrics.hasOwnProperty(acdYear)) {
             myRubrics = {
               ...myRubrics,
-              [acdYear]: [...myRubrics[acdYear], [key]]
+              [acdYear]: [...myRubrics[acdYear], key]
             };
           } else {
             myRubrics = {
               ...myRubrics,
-              [acdYear]: [key]
+              [acdYear]: key
             };
           }
-          
-          
-          
+          console.log("myRubrics: ", myRubrics)
+          console.log("allCompetencies: ", allCompetencies)
+          console.log("competencies: ", studentCompetencies)
           firestore
             .update("students/" + student.id, {
               myRubrics: myRubrics,
@@ -133,7 +132,7 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               classAllCompetencies[competency] / props.studentData.length
           };
         });
-
+        
         let classroomCompetencies = currentClassroomData[0].competencies;
         Object.keys(classAllCompetencies).forEach(competency => {
           let competencyScore = classroomCompetencies.hasOwnProperty(acdYear)
@@ -160,6 +159,7 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               }
             }
           };
+          console.log("ClassroomCompetencies: ", classroomCompetencies)
         });
         firestore
           .update("classrooms/" + classID, {
