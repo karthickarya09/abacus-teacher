@@ -75,7 +75,7 @@ class CreateRubric extends Component {
     this.props.addTemplate(this.state)
     this.props.history.push({
       pathname:'/enterStudentData',
-      state: this.state.competencies
+      state: this.state
     })
   }
   render() {

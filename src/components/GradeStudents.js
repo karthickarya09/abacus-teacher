@@ -12,13 +12,14 @@ import { getStudents, updateStudentRubrics } from "../actions/studentActions";
 import { Table } from "react-bootstrap";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class GradeStudents extends Component {
   state = {
     classID: "Lol",
     studentData: [],
     studentRubricData: {},
-    dataError: false,
+    dataError: false
   };
 
   handleChange = e => {
@@ -64,12 +65,12 @@ class GradeStudents extends Component {
       dataError: false
     });
     this.props.updateStudentRubrics(
-      document.getElementById('title').value,
+      document.getElementById("title").value,
       this.state.studentRubricData,
       this.props,
       this.state.classID
     );
-    this.props.history.push('/Rubrics')
+    this.props.history.push("/Rubrics");
   };
 
   render() {
@@ -89,6 +90,7 @@ class GradeStudents extends Component {
       );
     }
     return (
+      
       <div style={{ margin: 20 }}>
         <h4>Select Classroom</h4>
         <div>
@@ -177,9 +179,14 @@ class GradeStudents extends Component {
                                       </MenuItem>
                                       {scales.map(scale => {
                                         return (
-                                          <MenuItem value={parseInt(scale)}>
-                                            {scale}
-                                          </MenuItem>
+                                          <Tooltip
+                                            title={this.props.rubricData.competencies[competency][scale]}
+                                            placement="left-start"
+                                          >
+                                            <MenuItem value={parseInt(scale)}>
+                                              {scale}
+                                            </MenuItem>
+                                          </Tooltip>
                                         );
                                       })}
                                     </Select>
