@@ -25,8 +25,8 @@ class Radarchart extends Component {
           cx={300}
           cy={250}
           outerRadius={150}
-          width={600}
-          height={500}
+          width={800}
+          height={600}
           data={this.props.data}
         >
           <PolarGrid />

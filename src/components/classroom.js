@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import LineGraph from "./LineGraph";
 import ChipsArray from "./Chip";
+import LabeledHeatmap from "./LabelledHeatMap";
 
 class Classroom extends Component {
   state = {
@@ -16,7 +17,8 @@ class Classroom extends Component {
     competencies: [],
     years: [],
     graphData: [],
-    selectedLabels: []
+    selectedLabels: [],
+    heatMapData: []
   };
   selectChip = data => () => {
     let graphData = this.state.graphData;
@@ -53,6 +55,7 @@ class Classroom extends Component {
     let competencies = new Array();
     let years = new Array(0);
     let graphData = [];
+    let heatMapData = [];
     Object.keys(this.props.classroomData.allCompetencies).forEach(
       competency => {
         competencies.push({ competency: competency, selected: false });
@@ -88,10 +91,23 @@ class Classroom extends Component {
     });
   }
   render() {
+    console.log(this.props.students)
     let loading = true;
+    let heatMapData = []
+    let heatmap = []
+    let students=[]
     if (this.props.students.length > 0) {
+      Object.keys(this.props.classroomData.allCompetencies).map(competency=>{
+        this.props.students.forEach(student => {
+          students.push(student.Name)
+          let score = student.allCompetencies.hasOwnProperty(competency)?student.allCompetencies[competency] : 0
+          heatMapData.push({ x: competency, y: student.Name, color: score });
+        });
+      })
+      heatmap = LabeledHeatmap(heatMapData, Object.keys(this.props.classroomData.allCompetencies, students))
       loading = false;
     }
+    
     return (
       <div
         style={{
@@ -107,18 +123,33 @@ class Classroom extends Component {
         {loading && <Loading />}
         {!loading && (
           <div>
+            <hr></hr>
+            <h4>Over The Time Progress of Classroom</h4>
+            <hr></hr>
             <ChipsArray
               selectChip={this.selectChip}
               chipData={this.state.competencies}
             />
-            <div style={{ display:'flex', justifyContent:'center', flexShrink: 1, flexWrap: 'wrap'}}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexShrink: 1,
+                flexWrap: "wrap"
+              }}
+            >
               <LineGraph
                 data={this.state.graphData}
                 labels={this.state.selectedLabels}
                 color={this.makeColor}
               />
             </div>
-
+            <hr></hr>
+            <h4>Overall Heatmap of Competency Levels</h4>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {heatmap}
+            </div>
+            <h4>Student List</h4>
             <Table responsive>
               <thead>
                 <tr>
