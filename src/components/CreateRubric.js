@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import { Table } from "react-bootstrap";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import addTemplate from '../actions/rubricActions'
+import addTemplate from "../actions/rubricActions";
 
 class CreateRubric extends Component {
   state = {
@@ -14,8 +14,8 @@ class CreateRubric extends Component {
     competencies: [],
     labels: [],
     noTitle: false,
-    teacherData : this.props.teacherData,
-    title: ''
+    teacherData: this.props.teacherData,
+    title: ""
   };
 
   generateRubric = () => {
@@ -38,11 +38,10 @@ class CreateRubric extends Component {
     }
     this.setState({
       generated: true,
-      title: document.getElementById("title").value,
+      title,
       lowerBound: Number(lowerBound),
       upperBound: Number(upperBound),
       labels: labels,
-      title
     });
   };
 
@@ -62,22 +61,23 @@ class CreateRubric extends Component {
   };
 
   handleSubmit = () => {
-    let competencies = this.state.competencies
-    this.state.competencies.map((competency, index)=>{
-      this.state.labels.map(label=>{
-        competencies[index][label] = document.getElementById(String(competency.key+label)).value
-      })
-    })
+    let competencies = this.state.competencies;
+    this.state.competencies.map((competency, index) => {
+      this.state.labels.map(label => {
+        competencies[index][label] = document.getElementById(
+          String(competency.key + label)
+        ).value;
+      });
+    });
     this.setState({
       ...this.state,
       competencies
-    })
-    this.props.addTemplate(this.state)
+    });
+    this.props.addTemplate(this.state);
     this.props.history.push({
-      pathname:'/enterStudentData',
-      state: this.state
-    })
-  }
+      pathname: "/selectTemplate"
+    });
+  };
   render() {
     return (
       <div
@@ -180,11 +180,10 @@ class CreateRubric extends Component {
                             <TextField
                               key={competency.key + label}
                               required
-                              id={String(competency.key+label)}
+                              id={String(competency.key + label)}
                               label="Meaning"
                               multiline
                               margin="normal"
-                              
                             />
                           </td>
                         );
@@ -210,15 +209,20 @@ class CreateRubric extends Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) =>{
-  return{
+const mapDispatchToProps = dispatch => {
+  return {
     addTemplate: bindActionCreators(addTemplate, dispatch)
-  }
-}
+  };
+};
 const mapStateToProps = (state, ownProps) => {
   return {
-    teacherData: state.firestore.ordered.teachers? state.firestore.ordered.teachers[0]:{}
+    teacherData: state.firestore.ordered.teachers
+      ? state.firestore.ordered.teachers[0]
+      : {}
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRubric);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateRubric);

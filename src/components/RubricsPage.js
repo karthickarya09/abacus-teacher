@@ -19,8 +19,7 @@ class RubricsPage extends Component {
   };
 
   render() {
-    if (this.props.assessments.length > 0)
-      console.log(this.props.assessments[0].lastSubmitted);
+      
     const { anchorEl } = this.state;
     return (
       <div style={{ padding: 10 }}>

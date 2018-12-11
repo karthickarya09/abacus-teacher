@@ -3,9 +3,9 @@ import {
   Radar,
   RadarChart,
   PolarGrid,
-  Legend,
   PolarAngleAxis,
-  PolarRadiusAxis
+  PolarRadiusAxis,
+  Tooltip
 } from "recharts";
 
 class Radarchart extends Component {
@@ -13,12 +13,6 @@ class Radarchart extends Component {
   
 
   render() {
-    const data = [
-        { competency: 'Math', score: 120 },
-        { competency: 'Chinese', score: 98 },
-        { competency: 'English', score: 86},
-        
-    ];
     return (
       <div>
         <RadarChart
@@ -33,12 +27,12 @@ class Radarchart extends Component {
           <PolarAngleAxis dataKey="competency" />
           <PolarRadiusAxis />
           <Radar
-            name="Mike"
             dataKey="score"
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
           />
+          <Tooltip />
         </RadarChart>
       </div>
     );

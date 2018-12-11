@@ -30,7 +30,7 @@ class GradeStudents extends Component {
   handleScoreChanges = e => {
     let studentID = e.target.name.split(",")[0];
     let competency = e.target.name.split(",")[1];
-    let score = e.target.value;
+    let score = e.target.value;    
     this.setState({
       studentRubricData: {
         ...this.state.studentRubricData,
@@ -182,6 +182,7 @@ class GradeStudents extends Component {
                                           <Tooltip
                                             title={this.props.rubricData.competencies[competency][scale]}
                                             placement="left-start"
+                                            value={parseInt(scale)}
                                           >
                                             <MenuItem value={parseInt(scale)}>
                                               {scale}
@@ -205,7 +206,7 @@ class GradeStudents extends Component {
                   style={{ marginLeft: 10, background: "#4caf50" }}
                   onClick={this.handleSubmit}
                 >
-                  Submit Template
+                  Submit Assessment
                 </Button>
               </div>
             )}

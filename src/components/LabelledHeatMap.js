@@ -31,8 +31,11 @@ export default function LabeledHeatmap(heatMapData, competencies, students) {
       yType="ordinal"
       yDomain={students}
       margin={50}
-      width={1000}
+      width={1100}
       height={600}
+      style={{
+          fontSize: "11.5px",          
+      }}
     >
       <XAxis orientation="top" />
       <YAxis />
