@@ -97,9 +97,6 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               [acdYear]: key
             };
           }
-          console.log("myRubrics: ", myRubrics)
-          console.log("allCompetencies: ", allCompetencies)
-          console.log("competencies: ", studentCompetencies)
           firestore
             .update("students/" + student.id, {
               myRubrics: myRubrics,
@@ -159,7 +156,6 @@ export function updateStudentRubrics(title, studentRubricData, props, classID) {
               }
             }
           };
-          console.log("ClassroomCompetencies: ", classroomCompetencies)
         });
         firestore
           .update("classrooms/" + classID, {

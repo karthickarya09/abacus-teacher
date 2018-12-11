@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
 import LineGraph from "./LineGraph";
 import ChipsArray from "./Chip";
 import Radarchart from "./RadarChart";
@@ -91,7 +89,6 @@ class Student extends Component {
         });
       }
     );
-    console.log(radarData, competencyIndex)
     this.setState({
       lineData,
       competencies,

@@ -41,7 +41,6 @@ const styles = theme => ({
 function CustomizedTable(props) {
   const { classes, data} = props;
   const rows = data
-  console.log(data[0]);
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>

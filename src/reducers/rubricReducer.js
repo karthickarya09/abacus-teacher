@@ -6,7 +6,6 @@ export default function rubricReducer(
 ) {
   switch (action.type) {
     case "ADD_TEMPLATE_SUCCESS": {
-        console.log("Success: ", action.templateData)
       return {
         ...state,
         rubricData: action.templateData

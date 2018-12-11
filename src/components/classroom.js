@@ -32,7 +32,6 @@ class Classroom extends Component {
     Object.keys(temp).forEach(year => {
       if (chipData[chipToHighlight].selected) {
         delete graphData[this.state.years.indexOf(year)][data.competency];
-        console.log(selectedLabels);
       } else {
         if (!selectedLabels.includes(data.competency))
           selectedLabels.push(data.competency);
@@ -91,7 +90,6 @@ class Classroom extends Component {
     });
   }
   render() {
-    console.log(this.props.students)
     let loading = true;
     let heatMapData = []
     let heatmap = []
