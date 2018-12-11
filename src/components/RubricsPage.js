@@ -32,7 +32,6 @@ class RubricsPage extends Component {
                 <th>Academic Year</th>
                 <th>Date Created</th>
                 <th>Last Modified</th>
-                <th>Edit Submission</th>
               </tr>
             </thead>
             <tbody>
@@ -51,11 +50,6 @@ class RubricsPage extends Component {
                       {assessment.lastSubmitted.substr(0, 10) +
                         ", " +
                         assessment.lastSubmitted.substr(16, 5)}
-                    </td>
-                    <td>
-                      <IconButton>
-                        <EditIcon button />
-                      </IconButton>
                     </td>
                   </tr>
                 );
